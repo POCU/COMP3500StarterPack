@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Program" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="academy.pocu.comp3500.assignment3.app.Program" />
+    <module name="Assignment3" />
+    <option name="VM_PARAMETERS" value="-ea" />
+    <RunnerSettings RunnerId="Run" />
+    <ConfigurationWrapper RunnerId="Run" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
