@@ -2,7 +2,7 @@ hello
 world
 this is logging at the top level
   using indent, you can indent to organize your logs
-  try-resource pattern automatically outdents after you are done
+  call unindent() to decrease the indentation level
   this won't be discarded
   it's true!
     you can also nest an indent
