@@ -1,0 +1,13 @@
+hello
+world
+this is logging at the top level
+  using indent, you can indent to organize your logs
+  call unindent() to decrease the indentation level
+  this won't be discarded
+  it's true!
+    you can also nest an indent
+    like this!
+back to the top level!
+and let's print the logs
+log was just cleared
+so you start logging from the top level again
