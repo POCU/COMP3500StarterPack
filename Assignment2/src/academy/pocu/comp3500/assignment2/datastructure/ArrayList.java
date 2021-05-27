@@ -38,11 +38,11 @@ public class ArrayList<E> implements Iterable<E> {
     }
 
     public E remove(final int index) {
-        return this.remove(index);
+        return this.list.remove(index);
     }
 
     public boolean remove(final Object o) {
-        return this.remove(o);
+        return this.list.remove(o);
     }
 
     public void clear() {

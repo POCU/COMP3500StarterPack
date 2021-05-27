@@ -58,11 +58,11 @@ public class LinkedList<E> implements Iterable<E> {
     }
 
     public void add(final int index, E e) {
-        this.add(index, e);
+        this.list.add(index, e);
     }
 
     public E remove(final int index) {
-        return this.remove(index);
+        return this.list.remove(index);
     }
 
     public int getSize() {
