@@ -89,7 +89,7 @@ final class Game {
         this.lastMove.toX = nextMove.toX;
         this.lastMove.toY = nextMove.toY;
 
-        if (duration > this.maxMoveTimeoutInMilliseconds) {
+        if (player.getMaxMoveTimeMilliseconds() != Integer.MAX_VALUE && duration > this.maxMoveTimeoutInMilliseconds) {
             this.winner = this.currentTurn % 2 != 0 ? 'B' : 'W';
             this.isGameOver = true;
             this.timeOutInMilliseconds = duration;
@@ -120,6 +120,10 @@ final class Game {
             this.isGameOver = true;
             return;
         }
+    }
+
+    public boolean isNextTurnWhite() {
+        return this.currentTurn % 2 == 0;
     }
 
     public boolean isGameOver() {
@@ -184,11 +188,65 @@ final class Game {
             sb.append(System.lineSeparator());
         }
 
-
-        sb.append(System.lineSeparator());
         sb.append(System.lineSeparator());
 
         return sb.toString();
+    }
+
+    static boolean isMoveValid(char[][] board, PlayerBase player, Move moveOrNull) {
+        if (moveOrNull == null) {
+            return false;
+        }
+
+        if (moveOrNull.fromX >= BOARD_SIZE || moveOrNull.fromX < 0
+                || moveOrNull.fromY >= BOARD_SIZE || moveOrNull.fromY < 0) {
+            return false;
+        }
+
+        final char symbol = board[moveOrNull.fromY][moveOrNull.fromX];
+
+        if (symbol == 0) {
+            return false;
+        }
+
+        if ((player.isWhite() && !Character.isLowerCase(symbol))
+                || !player.isWhite() && Character.isLowerCase(symbol)) {
+            return false;
+        }
+
+        if (moveOrNull.toX >= BOARD_SIZE || moveOrNull.toX < 0
+                || moveOrNull.toY >= BOARD_SIZE || moveOrNull.toY < 0) {
+            return false;
+        }
+
+        if (moveOrNull.fromX == moveOrNull.toX && moveOrNull.fromY == moveOrNull.toY) {
+            return false;
+        }
+
+        char symbolInvariant = Character.toLowerCase(symbol);
+
+        switch (symbolInvariant) {
+            case 'p':
+                return isPawnMoveValid(board, moveOrNull);
+
+            case 'n':
+                return isKnightMoveValid(board, moveOrNull);
+
+            case 'b':
+                return isBishopMoveValid(board, moveOrNull);
+
+            case 'r':
+                return isRookMoveValid(board, moveOrNull);
+
+            case 'q':
+                return isQueenMoveValid(board, moveOrNull);
+
+            case 'k':
+                return isKingMoveValid(board, moveOrNull);
+
+            default:
+                throw new IllegalArgumentException("Unknown piece symbol");
+        }
     }
 
     private boolean isKingCaptured() {
@@ -301,62 +359,6 @@ final class Game {
         board[y][7] = 'R';
 
         return board;
-    }
-
-    private static boolean isMoveValid(char[][] board, PlayerBase player, Move moveOrNull) {
-        if (moveOrNull == null) {
-            return false;
-        }
-
-        if (moveOrNull.fromX >= BOARD_SIZE || moveOrNull.fromX < 0
-                || moveOrNull.fromY >= BOARD_SIZE || moveOrNull.fromY < 0) {
-            return false;
-        }
-
-        final char symbol = board[moveOrNull.fromY][moveOrNull.fromX];
-
-        if (symbol == 0) {
-            return false;
-        }
-
-        if ((player.isWhite() && !Character.isLowerCase(symbol))
-                || !player.isWhite() && Character.isLowerCase(symbol)) {
-            return false;
-        }
-
-        if (moveOrNull.toX >= BOARD_SIZE || moveOrNull.toX < 0
-                || moveOrNull.toY >= BOARD_SIZE || moveOrNull.toY < 0) {
-            return false;
-        }
-
-        if (moveOrNull.fromX == moveOrNull.toX && moveOrNull.fromY == moveOrNull.toY) {
-            return false;
-        }
-
-        char symbolInvariant = Character.toLowerCase(symbol);
-
-        switch (symbolInvariant) {
-            case 'p':
-                return isPawnMoveValid(board, moveOrNull);
-
-            case 'n':
-                return isKnightMoveValid(board, moveOrNull);
-
-            case 'b':
-                return isBishopMoveValid(board, moveOrNull);
-
-            case 'r':
-                return isRookMoveValid(board, moveOrNull);
-
-            case 'q':
-                return isQueenMoveValid(board, moveOrNull);
-
-            case 'k':
-                return isKingMoveValid(board, moveOrNull);
-
-            default:
-                throw new IllegalArgumentException("Unknown piece symbol");
-        }
     }
 
     private static boolean isBishopMoveValid(char[][] board, Move move) {
