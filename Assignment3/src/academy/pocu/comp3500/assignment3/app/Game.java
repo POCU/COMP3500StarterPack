@@ -472,13 +472,13 @@ final class Game {
 
         boolean hasMoved = isFromPieceWhite ? move.fromY != 6 : move.fromY != 1;
 
-        if (!hasMoved && Math.abs(move.toY - move.fromY) == 2) {
+        if (!hasMoved && move.fromX == move.toX && Math.abs(move.toY - move.fromY) == 2) {
             if (move.toY > move.fromY && !isFromPieceWhite && board[move.toY - 1][move.toX] == 0) {
                 return true;
             }
 
             return move.toY < move.fromY && isFromPieceWhite && board[move.toY + 1][move.toX] == 0;
-        } else if (move.fromX == move.toX && Math.abs(move.fromY - move.toY) == 1) {
+        } else if (move.fromX == move.toX && Math.abs(move.toY - move.fromY) == 1) {
             if (move.toY > move.fromY && !isFromPieceWhite) {
                 return true;
             }
