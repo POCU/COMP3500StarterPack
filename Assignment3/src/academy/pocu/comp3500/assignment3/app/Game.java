@@ -250,15 +250,13 @@ final class Game {
     }
 
     private boolean isKingCaptured() {
-        if (this.capturedPieces.toString().contains("k")) {
+        String capturedPieces = this.capturedPieces.toString();
+
+        if (capturedPieces.contains("k")) {
             return true;
         }
 
-        if (this.capturedPieces.toString().contains("K")) {
-            return true;
-        }
-
-        return false;
+        return capturedPieces.contains("K");
     }
 
     private static String printBoard(final char[][] board) {
