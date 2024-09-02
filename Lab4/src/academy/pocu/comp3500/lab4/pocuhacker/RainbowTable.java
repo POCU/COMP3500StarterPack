@@ -3,17 +3,17 @@ package academy.pocu.comp3500.lab4.pocuhacker;
 import java.util.HashMap;
 
 public class RainbowTable {
-    private final HashMap<String, String> mMap;
+    private final HashMap<String, String> map;
 
     public RainbowTable(final HashMap<String, String> map) {
-        mMap = map;
+        this.map = map;
     }
 
     public boolean contains(final String hash) {
-        return mMap.containsKey(hash);
+        return this.map.containsKey(hash);
     }
 
     public String get(final String hash) {
-        return mMap.get(hash);
+        return this.map.get(hash);
     }
 }
